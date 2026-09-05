@@ -1,0 +1,104 @@
+// Prisma Next data contract — the source of truth for the data layer.
+// Edit this file, then run `prisma contract emit` to regenerate contract.json / contract.d.ts.
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  username     String   @unique
+  passwordHash String
+  avatar       String?
+  role         String   @default("user")
+  createdAt    TimestamptzString @default(now())
+  updatedAt    temporal.updatedAtString()
+
+  saves        SaveGame[]
+  achievements UserAchievement[]
+  sessions     Session[]
+
+  @@map("users")
+}
+
+model Game {
+  id          String   @id @default(uuid())
+  title       String
+  emulator    String   // "genesis", "nes", "atari", etc.
+  romPath     String   // S3 path
+  cover       String?  // Image URL
+  description String?
+  releaseYear Int?
+  rating      Float?   @default(0)
+  tags        Json?    // string[] stored as jsonb — scalar lists aren't supported
+  createdAt   TimestamptzString @default(now())
+  updatedAt   temporal.updatedAtString()
+
+  saves       SaveGame[]
+
+  @@map("games")
+  @@index([emulator])
+  @@index([title])
+  @@index([rating])
+}
+
+model SaveGame {
+  id         String   @id @default(uuid())
+  userId     String
+  gameId     String
+  saveData   Bytes    // Compressed save state
+  saveFile   String   // S3 path
+  slotNumber Int
+  screenshot String?  // S3 URL
+  playTime   Int      @default(0) // seconds
+  createdAt  TimestamptzString @default(now())
+  updatedAt  temporal.updatedAtString()
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@map("save_games")
+  @@unique([userId, gameId, slotNumber])
+  @@index([gameId])
+  @@index([userId, updatedAt])
+}
+
+model Achievement {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  icon        String
+  criteria    Json     // e.g. { type: "time", value: 3600 }
+  createdAt   TimestamptzString @default(now())
+  updatedAt   temporal.updatedAtString()
+
+  unlockedBy UserAchievement[]
+
+  @@map("achievements")
+}
+
+model UserAchievement {
+  id            String   @id @default(uuid())
+  userId        String
+  achievementId String
+  unlockedAt    TimestamptzString @default(now())
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@map("user_achievements")
+  @@unique([userId, achievementId])
+  @@index([achievementId])
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  token     String   @unique
+  expiresAt TimestamptzString
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+  @@index([userId])
+  @@index([expiresAt])
+}

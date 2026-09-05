@@ -1,0 +1,1063 @@
+[
+  {
+    "id": "schema.public",
+    "label": "Create schema \"public\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Create schema \"public\"",
+        "sql": "CREATE SCHEMA IF NOT EXISTS \"public\"",
+        "params": []
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "table.achievement",
+    "label": "Create table \"achievement\"",
+    "summary": "Creates table \"achievement\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "achievement"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"achievement\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"achievement\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"achievement\"",
+        "sql": "CREATE TABLE \"public\".\"achievement\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"criteria\" json NOT NULL,\n  \"description\" text NOT NULL,\n  \"icon\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"title\" text NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"achievement\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"achievement\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.game",
+    "label": "Create table \"game\"",
+    "summary": "Creates table \"game\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "game"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"game\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"game\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"game\"",
+        "sql": "CREATE TABLE \"public\".\"game\" (\n  \"cover\" text,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"description\" text,\n  \"emulator\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"rating\" float8 DEFAULT 0,\n  \"releaseYear\" int4,\n  \"romPath\" text NOT NULL,\n  \"tags\" json,\n  \"title\" text NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"game\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"game\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.saveGame",
+    "label": "Create table \"saveGame\"",
+    "summary": "Creates table \"saveGame\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "saveGame"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"saveGame\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"saveGame\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"saveGame\"",
+        "sql": "CREATE TABLE \"public\".\"saveGame\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"gameId\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"playTime\" int4 DEFAULT 0 NOT NULL,\n  \"saveData\" bytea NOT NULL,\n  \"saveFile\" text NOT NULL,\n  \"screenshot\" text,\n  \"slotNumber\" int4 NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  \"userId\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"saveGame\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"saveGame\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.session",
+    "label": "Create table \"session\"",
+    "summary": "Creates table \"session\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "session"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"session\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"session\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"session\"",
+        "sql": "CREATE TABLE \"public\".\"session\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"expiresAt\" timestamptz NOT NULL,\n  \"id\" text NOT NULL,\n  \"token\" text NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  \"userId\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"session\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"session\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.user",
+    "label": "Create table \"user\"",
+    "summary": "Creates table \"user\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "user"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"user\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"user\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"user\"",
+        "sql": "CREATE TABLE \"public\".\"user\" (\n  \"avatar\" text,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"email\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"passwordHash\" text NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  \"username\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"user\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"user\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.userAchievement",
+    "label": "Create table \"userAchievement\"",
+    "summary": "Creates table \"userAchievement\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "userAchievement"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"userAchievement\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"userAchievement\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"userAchievement\"",
+        "sql": "CREATE TABLE \"public\".\"userAchievement\" (\n  \"achievementId\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"unlockedAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"userId\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"userAchievement\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"userAchievement\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.saveGame.saveGame_userId_gameId_slotNumber_key",
+    "label": "Add unique constraint on \"saveGame\" (userId, gameId, slotNumber)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "saveGame_userId_gameId_slotNumber_key",
+        "table": "saveGame"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"saveGame_userId_gameId_slotNumber_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "saveGame_userId_gameId_slotNumber_key",
+          "public",
+          "\"public\".\"saveGame\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"saveGame_userId_gameId_slotNumber_key\"",
+        "sql": "ALTER TABLE \"public\".\"saveGame\" ADD CONSTRAINT \"saveGame_userId_gameId_slotNumber_key\" UNIQUE (\"userId\", \"gameId\", \"slotNumber\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"saveGame_userId_gameId_slotNumber_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "saveGame_userId_gameId_slotNumber_key",
+          "public",
+          "\"public\".\"saveGame\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.session.session_token_key",
+    "label": "Add unique constraint on \"session\" (token)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "session_token_key",
+        "table": "session"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"session_token_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "session_token_key",
+          "public",
+          "\"public\".\"session\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"session_token_key\"",
+        "sql": "ALTER TABLE \"public\".\"session\" ADD CONSTRAINT \"session_token_key\" UNIQUE (\"token\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"session_token_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "session_token_key",
+          "public",
+          "\"public\".\"session\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.user.user_email_key",
+    "label": "Add unique constraint on \"user\" (email)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "user_email_key",
+        "table": "user"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"user_email_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "user_email_key",
+          "public",
+          "\"public\".\"user\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"user_email_key\"",
+        "sql": "ALTER TABLE \"public\".\"user\" ADD CONSTRAINT \"user_email_key\" UNIQUE (\"email\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"user_email_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "user_email_key",
+          "public",
+          "\"public\".\"user\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.user.user_username_key",
+    "label": "Add unique constraint on \"user\" (username)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "user_username_key",
+        "table": "user"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"user_username_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "user_username_key",
+          "public",
+          "\"public\".\"user\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"user_username_key\"",
+        "sql": "ALTER TABLE \"public\".\"user\" ADD CONSTRAINT \"user_username_key\" UNIQUE (\"username\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"user_username_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "user_username_key",
+          "public",
+          "\"public\".\"user\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.userAchievement.userAchievement_userId_achievementId_key",
+    "label": "Add unique constraint on \"userAchievement\" (userId, achievementId)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "userAchievement_userId_achievementId_key",
+        "table": "userAchievement"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"userAchievement_userId_achievementId_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "userAchievement_userId_achievementId_key",
+          "public",
+          "\"public\".\"userAchievement\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"userAchievement_userId_achievementId_key\"",
+        "sql": "ALTER TABLE \"public\".\"userAchievement\" ADD CONSTRAINT \"userAchievement_userId_achievementId_key\" UNIQUE (\"userId\", \"achievementId\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"userAchievement_userId_achievementId_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "userAchievement_userId_achievementId_key",
+          "public",
+          "\"public\".\"userAchievement\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.game.game_emulator_idx_9cfe7b23",
+    "label": "Create index \"game_emulator_idx_9cfe7b23\" on \"game\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "game_emulator_idx_9cfe7b23",
+        "table": "game"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"game_emulator_idx_9cfe7b23\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"game_emulator_idx_9cfe7b23\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"game_emulator_idx_9cfe7b23\"",
+        "sql": "CREATE INDEX \"game_emulator_idx_9cfe7b23\" ON \"public\".\"game\" (\"emulator\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"game_emulator_idx_9cfe7b23\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"game_emulator_idx_9cfe7b23\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.game.game_rating_idx_fcb0b199",
+    "label": "Create index \"game_rating_idx_fcb0b199\" on \"game\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "game_rating_idx_fcb0b199",
+        "table": "game"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"game_rating_idx_fcb0b199\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"game_rating_idx_fcb0b199\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"game_rating_idx_fcb0b199\"",
+        "sql": "CREATE INDEX \"game_rating_idx_fcb0b199\" ON \"public\".\"game\" (\"rating\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"game_rating_idx_fcb0b199\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"game_rating_idx_fcb0b199\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.game.game_title_idx_1c94c7b6",
+    "label": "Create index \"game_title_idx_1c94c7b6\" on \"game\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "game_title_idx_1c94c7b6",
+        "table": "game"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"game_title_idx_1c94c7b6\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"game_title_idx_1c94c7b6\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"game_title_idx_1c94c7b6\"",
+        "sql": "CREATE INDEX \"game_title_idx_1c94c7b6\" ON \"public\".\"game\" (\"title\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"game_title_idx_1c94c7b6\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"game_title_idx_1c94c7b6\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.saveGame.saveGame_gameId_idx_6cdb47f8",
+    "label": "Create index \"saveGame_gameId_idx_6cdb47f8\" on \"saveGame\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "saveGame_gameId_idx_6cdb47f8",
+        "table": "saveGame"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"saveGame_gameId_idx_6cdb47f8\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"saveGame_gameId_idx_6cdb47f8\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"saveGame_gameId_idx_6cdb47f8\"",
+        "sql": "CREATE INDEX \"saveGame_gameId_idx_6cdb47f8\" ON \"public\".\"saveGame\" (\"gameId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"saveGame_gameId_idx_6cdb47f8\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"saveGame_gameId_idx_6cdb47f8\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.saveGame.saveGame_userId_idx_a489d58a",
+    "label": "Create index \"saveGame_userId_idx_a489d58a\" on \"saveGame\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "saveGame_userId_idx_a489d58a",
+        "table": "saveGame"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"saveGame_userId_idx_a489d58a\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"saveGame_userId_idx_a489d58a\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"saveGame_userId_idx_a489d58a\"",
+        "sql": "CREATE INDEX \"saveGame_userId_idx_a489d58a\" ON \"public\".\"saveGame\" (\"userId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"saveGame_userId_idx_a489d58a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"saveGame_userId_idx_a489d58a\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.saveGame.saveGame_userId_updatedAt_idx_42f5280d",
+    "label": "Create index \"saveGame_userId_updatedAt_idx_42f5280d\" on \"saveGame\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "saveGame_userId_updatedAt_idx_42f5280d",
+        "table": "saveGame"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"saveGame_userId_updatedAt_idx_42f5280d\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"saveGame_userId_updatedAt_idx_42f5280d\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"saveGame_userId_updatedAt_idx_42f5280d\"",
+        "sql": "CREATE INDEX \"saveGame_userId_updatedAt_idx_42f5280d\" ON \"public\".\"saveGame\" (\"userId\", \"updatedAt\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"saveGame_userId_updatedAt_idx_42f5280d\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"saveGame_userId_updatedAt_idx_42f5280d\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.session.session_expiresAt_idx_6b6b8c10",
+    "label": "Create index \"session_expiresAt_idx_6b6b8c10\" on \"session\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "session_expiresAt_idx_6b6b8c10",
+        "table": "session"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"session_expiresAt_idx_6b6b8c10\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"session_expiresAt_idx_6b6b8c10\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"session_expiresAt_idx_6b6b8c10\"",
+        "sql": "CREATE INDEX \"session_expiresAt_idx_6b6b8c10\" ON \"public\".\"session\" (\"expiresAt\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"session_expiresAt_idx_6b6b8c10\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"session_expiresAt_idx_6b6b8c10\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.session.session_userId_idx_a489d58a",
+    "label": "Create index \"session_userId_idx_a489d58a\" on \"session\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "session_userId_idx_a489d58a",
+        "table": "session"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"session_userId_idx_a489d58a\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"session_userId_idx_a489d58a\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"session_userId_idx_a489d58a\"",
+        "sql": "CREATE INDEX \"session_userId_idx_a489d58a\" ON \"public\".\"session\" (\"userId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"session_userId_idx_a489d58a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"session_userId_idx_a489d58a\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.userAchievement.userAchievement_achievementId_idx_05a27a05",
+    "label": "Create index \"userAchievement_achievementId_idx_05a27a05\" on \"userAchievement\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "userAchievement_achievementId_idx_05a27a05",
+        "table": "userAchievement"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"userAchievement_achievementId_idx_05a27a05\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"userAchievement_achievementId_idx_05a27a05\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"userAchievement_achievementId_idx_05a27a05\"",
+        "sql": "CREATE INDEX \"userAchievement_achievementId_idx_05a27a05\" ON \"public\".\"userAchievement\" (\"achievementId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"userAchievement_achievementId_idx_05a27a05\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"userAchievement_achievementId_idx_05a27a05\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.userAchievement.userAchievement_userId_idx_a489d58a",
+    "label": "Create index \"userAchievement_userId_idx_a489d58a\" on \"userAchievement\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "userAchievement_userId_idx_a489d58a",
+        "table": "userAchievement"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"userAchievement_userId_idx_a489d58a\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"userAchievement_userId_idx_a489d58a\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"userAchievement_userId_idx_a489d58a\"",
+        "sql": "CREATE INDEX \"userAchievement_userId_idx_a489d58a\" ON \"public\".\"userAchievement\" (\"userId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"userAchievement_userId_idx_a489d58a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"userAchievement_userId_idx_a489d58a\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.saveGame.saveGame_userId_fkey",
+    "label": "Add foreign key \"saveGame_userId_fkey\" on \"saveGame\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "saveGame_userId_fkey",
+        "table": "saveGame"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"saveGame_userId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "saveGame_userId_fkey",
+          "public",
+          "\"public\".\"saveGame\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"saveGame_userId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"saveGame\"\nADD CONSTRAINT \"saveGame_userId_fkey\"\nFOREIGN KEY (\"userId\")\nREFERENCES \"public\".\"user\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"saveGame_userId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "saveGame_userId_fkey",
+          "public",
+          "\"public\".\"saveGame\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.saveGame.saveGame_gameId_fkey",
+    "label": "Add foreign key \"saveGame_gameId_fkey\" on \"saveGame\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "saveGame_gameId_fkey",
+        "table": "saveGame"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"saveGame_gameId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "saveGame_gameId_fkey",
+          "public",
+          "\"public\".\"saveGame\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"saveGame_gameId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"saveGame\"\nADD CONSTRAINT \"saveGame_gameId_fkey\"\nFOREIGN KEY (\"gameId\")\nREFERENCES \"public\".\"game\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"saveGame_gameId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "saveGame_gameId_fkey",
+          "public",
+          "\"public\".\"saveGame\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.session.session_userId_fkey",
+    "label": "Add foreign key \"session_userId_fkey\" on \"session\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "session_userId_fkey",
+        "table": "session"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"session_userId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "session_userId_fkey",
+          "public",
+          "\"public\".\"session\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"session_userId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"session\"\nADD CONSTRAINT \"session_userId_fkey\"\nFOREIGN KEY (\"userId\")\nREFERENCES \"public\".\"user\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"session_userId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "session_userId_fkey",
+          "public",
+          "\"public\".\"session\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.userAchievement.userAchievement_userId_fkey",
+    "label": "Add foreign key \"userAchievement_userId_fkey\" on \"userAchievement\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "userAchievement_userId_fkey",
+        "table": "userAchievement"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"userAchievement_userId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "userAchievement_userId_fkey",
+          "public",
+          "\"public\".\"userAchievement\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"userAchievement_userId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"userAchievement\"\nADD CONSTRAINT \"userAchievement_userId_fkey\"\nFOREIGN KEY (\"userId\")\nREFERENCES \"public\".\"user\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"userAchievement_userId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "userAchievement_userId_fkey",
+          "public",
+          "\"public\".\"userAchievement\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.userAchievement.userAchievement_achievementId_fkey",
+    "label": "Add foreign key \"userAchievement_achievementId_fkey\" on \"userAchievement\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "userAchievement_achievementId_fkey",
+        "table": "userAchievement"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"userAchievement_achievementId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "userAchievement_achievementId_fkey",
+          "public",
+          "\"public\".\"userAchievement\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"userAchievement_achievementId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"userAchievement\"\nADD CONSTRAINT \"userAchievement_achievementId_fkey\"\nFOREIGN KEY (\"achievementId\")\nREFERENCES \"public\".\"achievement\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"userAchievement_achievementId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "userAchievement_achievementId_fkey",
+          "public",
+          "\"public\".\"userAchievement\""
+        ]
+      }
+    ]
+  }
+]

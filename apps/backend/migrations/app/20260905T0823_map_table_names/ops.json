@@ -1,0 +1,814 @@
+[
+  {
+    "id": "renameTable.achievements",
+    "label": "Rename table \"achievement\" to \"achievements\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.achievements"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename table \"achievement\" to \"achievements\"",
+        "sql": "ALTER TABLE \"public\".\"achievement\" RENAME TO \"achievements\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameTable.games",
+    "label": "Rename table \"game\" to \"games\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.games"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename table \"game\" to \"games\"",
+        "sql": "ALTER TABLE \"public\".\"game\" RENAME TO \"games\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameTable.save_games",
+    "label": "Rename table \"saveGame\" to \"save_games\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.save_games"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename table \"saveGame\" to \"save_games\"",
+        "sql": "ALTER TABLE \"public\".\"saveGame\" RENAME TO \"save_games\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameTable.sessions",
+    "label": "Rename table \"session\" to \"sessions\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.sessions"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename table \"session\" to \"sessions\"",
+        "sql": "ALTER TABLE \"public\".\"session\" RENAME TO \"sessions\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameTable.users",
+    "label": "Rename table \"user\" to \"users\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.users"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename table \"user\" to \"users\"",
+        "sql": "ALTER TABLE \"public\".\"user\" RENAME TO \"users\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameTable.user_achievements",
+    "label": "Rename table \"userAchievement\" to \"user_achievements\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.user_achievements"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename table \"userAchievement\" to \"user_achievements\"",
+        "sql": "ALTER TABLE \"public\".\"userAchievement\" RENAME TO \"user_achievements\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.achievements.achievements_pkey",
+    "label": "Rename constraint \"achievement_pkey\" to \"achievements_pkey\" on \"achievements\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.achievements"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"achievement_pkey\" to \"achievements_pkey\" on \"achievements\"",
+        "sql": "ALTER TABLE \"public\".\"achievements\" RENAME CONSTRAINT \"achievement_pkey\" TO \"achievements_pkey\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.games.games_pkey",
+    "label": "Rename constraint \"game_pkey\" to \"games_pkey\" on \"games\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.games"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"game_pkey\" to \"games_pkey\" on \"games\"",
+        "sql": "ALTER TABLE \"public\".\"games\" RENAME CONSTRAINT \"game_pkey\" TO \"games_pkey\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.save_games.save_games_pkey",
+    "label": "Rename constraint \"saveGame_pkey\" to \"save_games_pkey\" on \"save_games\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.save_games"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"saveGame_pkey\" to \"save_games_pkey\" on \"save_games\"",
+        "sql": "ALTER TABLE \"public\".\"save_games\" RENAME CONSTRAINT \"saveGame_pkey\" TO \"save_games_pkey\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.sessions.sessions_pkey",
+    "label": "Rename constraint \"session_pkey\" to \"sessions_pkey\" on \"sessions\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.sessions"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"session_pkey\" to \"sessions_pkey\" on \"sessions\"",
+        "sql": "ALTER TABLE \"public\".\"sessions\" RENAME CONSTRAINT \"session_pkey\" TO \"sessions_pkey\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.users.users_pkey",
+    "label": "Rename constraint \"user_pkey\" to \"users_pkey\" on \"users\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.users"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"user_pkey\" to \"users_pkey\" on \"users\"",
+        "sql": "ALTER TABLE \"public\".\"users\" RENAME CONSTRAINT \"user_pkey\" TO \"users_pkey\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.user_achievements.user_achievements_pkey",
+    "label": "Rename constraint \"userAchievement_pkey\" to \"user_achievements_pkey\" on \"user_achievements\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.user_achievements"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"userAchievement_pkey\" to \"user_achievements_pkey\" on \"user_achievements\"",
+        "sql": "ALTER TABLE \"public\".\"user_achievements\" RENAME CONSTRAINT \"userAchievement_pkey\" TO \"user_achievements_pkey\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.save_games.save_games_userId_gameId_slotNumber_key",
+    "label": "Rename constraint \"saveGame_userId_gameId_slotNumber_key\" to \"save_games_userId_gameId_slotNumber_key\" on \"save_games\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.save_games"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"saveGame_userId_gameId_slotNumber_key\" to \"save_games_userId_gameId_slotNumber_key\" on \"save_games\"",
+        "sql": "ALTER TABLE \"public\".\"save_games\" RENAME CONSTRAINT \"saveGame_userId_gameId_slotNumber_key\" TO \"save_games_userId_gameId_slotNumber_key\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.sessions.sessions_token_key",
+    "label": "Rename constraint \"session_token_key\" to \"sessions_token_key\" on \"sessions\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.sessions"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"session_token_key\" to \"sessions_token_key\" on \"sessions\"",
+        "sql": "ALTER TABLE \"public\".\"sessions\" RENAME CONSTRAINT \"session_token_key\" TO \"sessions_token_key\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.user_achievements.user_achievements_userId_achievementId_key",
+    "label": "Rename constraint \"userAchievement_userId_achievementId_key\" to \"user_achievements_userId_achievementId_key\" on \"user_achievements\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.user_achievements"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"userAchievement_userId_achievementId_key\" to \"user_achievements_userId_achievementId_key\" on \"user_achievements\"",
+        "sql": "ALTER TABLE \"public\".\"user_achievements\" RENAME CONSTRAINT \"userAchievement_userId_achievementId_key\" TO \"user_achievements_userId_achievementId_key\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.users.users_email_key",
+    "label": "Rename constraint \"user_email_key\" to \"users_email_key\" on \"users\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.users"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"user_email_key\" to \"users_email_key\" on \"users\"",
+        "sql": "ALTER TABLE \"public\".\"users\" RENAME CONSTRAINT \"user_email_key\" TO \"users_email_key\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.users.users_username_key",
+    "label": "Rename constraint \"user_username_key\" to \"users_username_key\" on \"users\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.users"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"user_username_key\" to \"users_username_key\" on \"users\"",
+        "sql": "ALTER TABLE \"public\".\"users\" RENAME CONSTRAINT \"user_username_key\" TO \"users_username_key\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "index.public.games.game_emulator_idx_9cfe7b23.rename",
+    "label": "Rename index \"game_emulator_idx_9cfe7b23\" to \"games_emulator_idx_9cfe7b23\" on \"games\"",
+    "operationClass": "widening",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "games_emulator_idx_9cfe7b23",
+        "table": "games"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"game_emulator_idx_9cfe7b23\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"game_emulator_idx_9cfe7b23\""
+        ]
+      },
+      {
+        "description": "ensure index \"games_emulator_idx_9cfe7b23\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"games_emulator_idx_9cfe7b23\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "rename index \"game_emulator_idx_9cfe7b23\" to \"games_emulator_idx_9cfe7b23\"",
+        "sql": "ALTER INDEX \"public\".\"game_emulator_idx_9cfe7b23\" RENAME TO \"games_emulator_idx_9cfe7b23\"",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"games_emulator_idx_9cfe7b23\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"games_emulator_idx_9cfe7b23\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.public.games.game_rating_idx_fcb0b199.rename",
+    "label": "Rename index \"game_rating_idx_fcb0b199\" to \"games_rating_idx_fcb0b199\" on \"games\"",
+    "operationClass": "widening",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "games_rating_idx_fcb0b199",
+        "table": "games"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"game_rating_idx_fcb0b199\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"game_rating_idx_fcb0b199\""
+        ]
+      },
+      {
+        "description": "ensure index \"games_rating_idx_fcb0b199\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"games_rating_idx_fcb0b199\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "rename index \"game_rating_idx_fcb0b199\" to \"games_rating_idx_fcb0b199\"",
+        "sql": "ALTER INDEX \"public\".\"game_rating_idx_fcb0b199\" RENAME TO \"games_rating_idx_fcb0b199\"",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"games_rating_idx_fcb0b199\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"games_rating_idx_fcb0b199\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.public.games.game_title_idx_1c94c7b6.rename",
+    "label": "Rename index \"game_title_idx_1c94c7b6\" to \"games_title_idx_1c94c7b6\" on \"games\"",
+    "operationClass": "widening",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "games_title_idx_1c94c7b6",
+        "table": "games"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"game_title_idx_1c94c7b6\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"game_title_idx_1c94c7b6\""
+        ]
+      },
+      {
+        "description": "ensure index \"games_title_idx_1c94c7b6\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"games_title_idx_1c94c7b6\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "rename index \"game_title_idx_1c94c7b6\" to \"games_title_idx_1c94c7b6\"",
+        "sql": "ALTER INDEX \"public\".\"game_title_idx_1c94c7b6\" RENAME TO \"games_title_idx_1c94c7b6\"",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"games_title_idx_1c94c7b6\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"games_title_idx_1c94c7b6\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.public.save_games.saveGame_gameId_idx_6cdb47f8.rename",
+    "label": "Rename index \"saveGame_gameId_idx_6cdb47f8\" to \"save_games_gameId_idx_6cdb47f8\" on \"save_games\"",
+    "operationClass": "widening",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "save_games_gameId_idx_6cdb47f8",
+        "table": "save_games"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"saveGame_gameId_idx_6cdb47f8\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"saveGame_gameId_idx_6cdb47f8\""
+        ]
+      },
+      {
+        "description": "ensure index \"save_games_gameId_idx_6cdb47f8\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"save_games_gameId_idx_6cdb47f8\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "rename index \"saveGame_gameId_idx_6cdb47f8\" to \"save_games_gameId_idx_6cdb47f8\"",
+        "sql": "ALTER INDEX \"public\".\"saveGame_gameId_idx_6cdb47f8\" RENAME TO \"save_games_gameId_idx_6cdb47f8\"",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"save_games_gameId_idx_6cdb47f8\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"save_games_gameId_idx_6cdb47f8\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.public.save_games.saveGame_userId_idx_a489d58a.rename",
+    "label": "Rename index \"saveGame_userId_idx_a489d58a\" to \"save_games_userId_idx_a489d58a\" on \"save_games\"",
+    "operationClass": "widening",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "save_games_userId_idx_a489d58a",
+        "table": "save_games"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"saveGame_userId_idx_a489d58a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"saveGame_userId_idx_a489d58a\""
+        ]
+      },
+      {
+        "description": "ensure index \"save_games_userId_idx_a489d58a\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"save_games_userId_idx_a489d58a\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "rename index \"saveGame_userId_idx_a489d58a\" to \"save_games_userId_idx_a489d58a\"",
+        "sql": "ALTER INDEX \"public\".\"saveGame_userId_idx_a489d58a\" RENAME TO \"save_games_userId_idx_a489d58a\"",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"save_games_userId_idx_a489d58a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"save_games_userId_idx_a489d58a\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.public.save_games.saveGame_userId_updatedAt_idx_42f5280d.rename",
+    "label": "Rename index \"saveGame_userId_updatedAt_idx_42f5280d\" to \"save_games_userId_updatedAt_idx_42f5280d\" on \"save_games\"",
+    "operationClass": "widening",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "save_games_userId_updatedAt_idx_42f5280d",
+        "table": "save_games"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"saveGame_userId_updatedAt_idx_42f5280d\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"saveGame_userId_updatedAt_idx_42f5280d\""
+        ]
+      },
+      {
+        "description": "ensure index \"save_games_userId_updatedAt_idx_42f5280d\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"save_games_userId_updatedAt_idx_42f5280d\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "rename index \"saveGame_userId_updatedAt_idx_42f5280d\" to \"save_games_userId_updatedAt_idx_42f5280d\"",
+        "sql": "ALTER INDEX \"public\".\"saveGame_userId_updatedAt_idx_42f5280d\" RENAME TO \"save_games_userId_updatedAt_idx_42f5280d\"",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"save_games_userId_updatedAt_idx_42f5280d\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"save_games_userId_updatedAt_idx_42f5280d\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.public.sessions.session_expiresAt_idx_6b6b8c10.rename",
+    "label": "Rename index \"session_expiresAt_idx_6b6b8c10\" to \"sessions_expiresAt_idx_6b6b8c10\" on \"sessions\"",
+    "operationClass": "widening",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "sessions_expiresAt_idx_6b6b8c10",
+        "table": "sessions"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"session_expiresAt_idx_6b6b8c10\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"session_expiresAt_idx_6b6b8c10\""
+        ]
+      },
+      {
+        "description": "ensure index \"sessions_expiresAt_idx_6b6b8c10\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"sessions_expiresAt_idx_6b6b8c10\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "rename index \"session_expiresAt_idx_6b6b8c10\" to \"sessions_expiresAt_idx_6b6b8c10\"",
+        "sql": "ALTER INDEX \"public\".\"session_expiresAt_idx_6b6b8c10\" RENAME TO \"sessions_expiresAt_idx_6b6b8c10\"",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"sessions_expiresAt_idx_6b6b8c10\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"sessions_expiresAt_idx_6b6b8c10\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.public.sessions.session_userId_idx_a489d58a.rename",
+    "label": "Rename index \"session_userId_idx_a489d58a\" to \"sessions_userId_idx_a489d58a\" on \"sessions\"",
+    "operationClass": "widening",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "sessions_userId_idx_a489d58a",
+        "table": "sessions"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"session_userId_idx_a489d58a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"session_userId_idx_a489d58a\""
+        ]
+      },
+      {
+        "description": "ensure index \"sessions_userId_idx_a489d58a\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"sessions_userId_idx_a489d58a\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "rename index \"session_userId_idx_a489d58a\" to \"sessions_userId_idx_a489d58a\"",
+        "sql": "ALTER INDEX \"public\".\"session_userId_idx_a489d58a\" RENAME TO \"sessions_userId_idx_a489d58a\"",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"sessions_userId_idx_a489d58a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"sessions_userId_idx_a489d58a\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.public.user_achievements.userAchievement_achievementId_idx_05a27a05.rename",
+    "label": "Rename index \"userAchievement_achievementId_idx_05a27a05\" to \"user_achievements_achievementId_idx_05a27a05\" on \"user_achievements\"",
+    "operationClass": "widening",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "user_achievements_achievementId_idx_05a27a05",
+        "table": "user_achievements"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"userAchievement_achievementId_idx_05a27a05\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"userAchievement_achievementId_idx_05a27a05\""
+        ]
+      },
+      {
+        "description": "ensure index \"user_achievements_achievementId_idx_05a27a05\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"user_achievements_achievementId_idx_05a27a05\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "rename index \"userAchievement_achievementId_idx_05a27a05\" to \"user_achievements_achievementId_idx_05a27a05\"",
+        "sql": "ALTER INDEX \"public\".\"userAchievement_achievementId_idx_05a27a05\" RENAME TO \"user_achievements_achievementId_idx_05a27a05\"",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"user_achievements_achievementId_idx_05a27a05\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"user_achievements_achievementId_idx_05a27a05\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.public.user_achievements.userAchievement_userId_idx_a489d58a.rename",
+    "label": "Rename index \"userAchievement_userId_idx_a489d58a\" to \"user_achievements_userId_idx_a489d58a\" on \"user_achievements\"",
+    "operationClass": "widening",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "user_achievements_userId_idx_a489d58a",
+        "table": "user_achievements"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"userAchievement_userId_idx_a489d58a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"userAchievement_userId_idx_a489d58a\""
+        ]
+      },
+      {
+        "description": "ensure index \"user_achievements_userId_idx_a489d58a\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"user_achievements_userId_idx_a489d58a\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "rename index \"userAchievement_userId_idx_a489d58a\" to \"user_achievements_userId_idx_a489d58a\"",
+        "sql": "ALTER INDEX \"public\".\"userAchievement_userId_idx_a489d58a\" RENAME TO \"user_achievements_userId_idx_a489d58a\"",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"user_achievements_userId_idx_a489d58a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"user_achievements_userId_idx_a489d58a\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "renameConstraint.save_games.save_games_userId_fkey",
+    "label": "Rename constraint \"saveGame_userId_fkey\" to \"save_games_userId_fkey\" on \"save_games\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.save_games"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"saveGame_userId_fkey\" to \"save_games_userId_fkey\" on \"save_games\"",
+        "sql": "ALTER TABLE \"public\".\"save_games\" RENAME CONSTRAINT \"saveGame_userId_fkey\" TO \"save_games_userId_fkey\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.save_games.save_games_gameId_fkey",
+    "label": "Rename constraint \"saveGame_gameId_fkey\" to \"save_games_gameId_fkey\" on \"save_games\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.save_games"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"saveGame_gameId_fkey\" to \"save_games_gameId_fkey\" on \"save_games\"",
+        "sql": "ALTER TABLE \"public\".\"save_games\" RENAME CONSTRAINT \"saveGame_gameId_fkey\" TO \"save_games_gameId_fkey\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.sessions.sessions_userId_fkey",
+    "label": "Rename constraint \"session_userId_fkey\" to \"sessions_userId_fkey\" on \"sessions\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.sessions"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"session_userId_fkey\" to \"sessions_userId_fkey\" on \"sessions\"",
+        "sql": "ALTER TABLE \"public\".\"sessions\" RENAME CONSTRAINT \"session_userId_fkey\" TO \"sessions_userId_fkey\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.user_achievements.user_achievements_userId_fkey",
+    "label": "Rename constraint \"userAchievement_userId_fkey\" to \"user_achievements_userId_fkey\" on \"user_achievements\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.user_achievements"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"userAchievement_userId_fkey\" to \"user_achievements_userId_fkey\" on \"user_achievements\"",
+        "sql": "ALTER TABLE \"public\".\"user_achievements\" RENAME CONSTRAINT \"userAchievement_userId_fkey\" TO \"user_achievements_userId_fkey\""
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "renameConstraint.user_achievements.user_achievements_achievementId_fkey",
+    "label": "Rename constraint \"userAchievement_achievementId_fkey\" to \"user_achievements_achievementId_fkey\" on \"user_achievements\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.user_achievements"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename constraint \"userAchievement_achievementId_fkey\" to \"user_achievements_achievementId_fkey\" on \"user_achievements\"",
+        "sql": "ALTER TABLE \"public\".\"user_achievements\" RENAME CONSTRAINT \"userAchievement_achievementId_fkey\" TO \"user_achievements_achievementId_fkey\""
+      }
+    ],
+    "postcheck": []
+  }
+]

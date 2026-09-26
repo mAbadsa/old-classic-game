@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# EmulatorJS third-party distributable and user-supplied game/BIOS files —
+# see public/emulators/README.md and EMULATORS.md. Never commit ROMs/BIOS
+# you don't have the legal right to redistribute.
+/public/emulators/data/*
+!/public/emulators/data/.gitkeep
+/public/emulators/roms/*/*
+!/public/emulators/roms/*/.gitkeep
+/public/emulators/bios/*
+!/public/emulators/bios/.gitkeep

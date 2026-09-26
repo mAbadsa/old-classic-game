@@ -1,26 +1,195 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-arcade), var(--font-sans);
+  --font-arcade: var(--font-arcade), var(--font-sans);
+  --color-neon-yellow: var(--neon-yellow);
+  --color-neon-pink: var(--neon-pink);
+  --color-arcade-dark: #0a0e27;
+  --color-arcade-light: #f8fafc;
+  --shadow-pixel: 4px 4px 0 0 var(--foreground);
+  --shadow-pixel-sm: 2px 2px 0 0 var(--foreground);
+  --shadow-neon-yellow:
+    0 0 4px var(--neon-yellow), 0 0 10px var(--neon-yellow),
+    0 0 20px color-mix(in oklch, var(--neon-yellow), transparent 20%),
+    0 0 40px color-mix(in oklch, var(--neon-yellow), transparent 50%);
+  --shadow-neon-pink:
+    0 0 4px var(--neon-pink),
+    0 0 10px color-mix(in oklch, var(--neon-pink), transparent 20%),
+    0 0 24px color-mix(in oklch, var(--neon-pink), transparent 50%);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --font-sans: "Courier New", Courier, monospace;
+  --neon-yellow: #fde047;
+  --neon-pink: #ff2e88;
+  --background: #0a0e27;
+  --foreground: #f0f9ff;
+  --card: #1a1f3a;
+  --card-foreground: #f0f9ff;
+  --popover: #1a1f3a;
+  --popover-foreground: #f0f9ff;
+  --primary: #7c3aed;
+  --primary-foreground: #ffffff;
+  --secondary: #1a1f3a;
+  --secondary-foreground: #f0f9ff;
+  --muted: #1a1f3a;
+  --muted-foreground: #cbd5e1;
+  --accent: #06b6d4;
+  --accent-foreground: #0a0e27;
+  --destructive: #ef4444;
+  --warning: #f59e0b;
+  --warning-foreground: #0a0e27;
+  --success: #10b981;
+  --success-foreground: #0a0e27;
+  --border: #334155;
+  --input: #334155;
+  --ring: #7c3aed;
+  --chart-1: #7c3aed;
+  --chart-2: #06b6d4;
+  --chart-3: #10b981;
+  --chart-4: #f59e0b;
+  --chart-5: #ef4444;
+  --radius: 0rem;
+  --sidebar: #0a0e27;
+  --sidebar-foreground: #f0f9ff;
+  --sidebar-primary: #7c3aed;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1a1f3a;
+  --sidebar-accent-foreground: #f0f9ff;
+  --sidebar-border: #334155;
+  --sidebar-ring: #7c3aed;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-heading tracking-wide;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Dark arcade grid backdrop — faint purple grid lines over the midnight background. */
+  .dark-grid-bg {
+    background-color: #0a0e27;
+    background-image:
+      linear-gradient(rgba(124, 58, 237, 0.25) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124, 58, 237, 0.25) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: -1px -1px;
+  }
+
+  /* Glowing yellow text, arcade marquee style. */
+  .neon-text {
+    color: var(--neon-yellow);
+    text-shadow:
+      0 0 4px var(--neon-yellow),
+      0 0 10px var(--neon-yellow),
+      0 0 20px color-mix(in oklch, var(--neon-yellow), transparent 20%),
+      0 0 40px color-mix(in oklch, var(--neon-yellow), transparent 50%);
+  }
+
+  /* Glowing pink border, for callouts / active states. */
+  .neon-border {
+    border: 2px solid var(--neon-pink);
+    box-shadow:
+      0 0 4px var(--neon-pink),
+      0 0 10px color-mix(in oklch, var(--neon-pink), transparent 20%),
+      0 0 24px color-mix(in oklch, var(--neon-pink), transparent 50%);
+  }
+
+  /* Hard-edged 8-bit button shadow that collapses on press. Override --pixel-shadow-color per instance. */
+  .pixel-button {
+    --pixel-shadow-color: var(--foreground);
+    box-shadow: 4px 4px 0 0 var(--pixel-shadow-color);
+    transition:
+      transform 0.1s steps(2),
+      box-shadow 0.1s steps(2);
+  }
+  .pixel-button:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 0 var(--pixel-shadow-color);
+  }
+  .pixel-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 0 var(--pixel-shadow-color);
+  }
+
+  /* Opt-in CRT scanline overlay — apply to a positioned container, not globally. */
+  .scanlines {
+    position: relative;
+    isolation: isolate;
+  }
+  .scanlines::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.25) 0px,
+      rgba(0, 0, 0, 0.25) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
 }

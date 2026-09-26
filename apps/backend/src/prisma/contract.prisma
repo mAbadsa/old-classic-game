@@ -43,10 +43,9 @@ model SaveGame {
   id         String   @id @default(uuid())
   userId     String
   gameId     String
-  saveData   Bytes    // Compressed save state
-  saveFile   String   // S3 path
-  slotNumber Int
-  screenshot String?  // S3 URL
+  saveState  Bytes    // binary emulator save state
+  slotNumber Int      // 1-5, enforced at the application layer
+  screenshot String?  // image URL
   playTime   Int      @default(0) // seconds
   createdAt  TimestamptzString @default(now())
   updatedAt  temporal.updatedAtString()
@@ -101,4 +100,28 @@ model Session {
   @@map("sessions")
   @@index([userId])
   @@index([expiresAt])
+}
+
+model SystemSetting {
+  key       String   @id
+  value     Json
+  updatedAt temporal.updatedAtString()
+
+  @@map("system_settings")
+}
+
+// Admin audit trail. No FK to User: entries should outlive a deleted actor,
+// and some actions (system jobs) have no actor at all.
+model AdminLog {
+  id         String   @id @default(uuid())
+  actorId    String?
+  action     String
+  targetType String?
+  targetId   String?
+  metadata   Json?
+  createdAt  TimestamptzString @default(now())
+
+  @@map("admin_logs")
+  @@index([createdAt])
+  @@index([actorId])
 }

@@ -1,3 +1,16 @@
 node_modules/
 dist/
 .env
+
+# Local ROM uploads (see uploads/storage/local-storage.provider.ts) — the
+# default UPLOADS_DIR. Never commit user-uploaded files.
+/uploads/
+
+# ROM files served by GET /games/:gameId/rom (games/rom-file.util.ts) — the
+# default ROMS_DIR. src/prisma/seed.ts writes placeholder (non-playable)
+# files here; never commit real ROMs you don't have the right to redistribute.
+/public/roms/*
+!/public/roms/.gitkeep
+
+# TypeScript incremental build cache
+*.tsbuildinfo

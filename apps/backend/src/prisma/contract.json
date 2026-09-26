@@ -8,6 +8,10 @@
       "model": "Achievement",
       "namespace": "public"
     },
+    "admin_logs": {
+      "model": "AdminLog",
+      "namespace": "public"
+    },
     "games": {
       "model": "Game",
       "namespace": "public"
@@ -18,6 +22,10 @@
     },
     "sessions": {
       "model": "Session",
+      "namespace": "public"
+    },
+    "system_settings": {
+      "model": "SystemSetting",
       "namespace": "public"
     },
     "user_achievements": {
@@ -128,6 +136,87 @@
               },
               "namespaceId": "public",
               "table": "achievements"
+            }
+          },
+          "AdminLog": {
+            "fields": {
+              "action": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "actorId": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "metadata": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/json@1",
+                  "kind": "scalar"
+                }
+              },
+              "targetId": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "targetType": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {},
+            "storage": {
+              "fields": {
+                "action": {
+                  "column": "action"
+                },
+                "actorId": {
+                  "column": "actorId"
+                },
+                "createdAt": {
+                  "column": "createdAt"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "metadata": {
+                  "column": "metadata"
+                },
+                "targetId": {
+                  "column": "targetId"
+                },
+                "targetType": {
+                  "column": "targetType"
+                }
+              },
+              "namespaceId": "public",
+              "table": "admin_logs"
             }
           },
           "Game": {
@@ -297,17 +386,10 @@
                   "kind": "scalar"
                 }
               },
-              "saveData": {
+              "saveState": {
                 "nullable": false,
                 "type": {
                   "codecId": "pg/bytea@1",
-                  "kind": "scalar"
-                }
-              },
-              "saveFile": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/text@1",
                   "kind": "scalar"
                 }
               },
@@ -386,11 +468,8 @@
                 "playTime": {
                   "column": "playTime"
                 },
-                "saveData": {
-                  "column": "saveData"
-                },
-                "saveFile": {
-                  "column": "saveFile"
+                "saveState": {
+                  "column": "saveState"
                 },
                 "screenshot": {
                   "column": "screenshot"
@@ -494,6 +573,47 @@
               },
               "namespaceId": "public",
               "table": "sessions"
+            }
+          },
+          "SystemSetting": {
+            "fields": {
+              "key": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "value": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/json@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {},
+            "storage": {
+              "fields": {
+                "key": {
+                  "column": "key"
+                },
+                "updatedAt": {
+                  "column": "updatedAt"
+                },
+                "value": {
+                  "column": "value"
+                }
+              },
+              "namespaceId": "public",
+              "table": "system_settings"
             }
           },
           "User": {
@@ -775,6 +895,74 @@
               },
               "uniques": []
             },
+            "admin_logs": {
+              "columns": {
+                "action": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "actorId": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "createdAt": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "metadata": {
+                  "codecId": "pg/json@1",
+                  "nativeType": "json",
+                  "nullable": true
+                },
+                "targetId": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "targetType": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [
+                {
+                  "columns": [
+                    "actorId"
+                  ],
+                  "name": "admin_logs_actorId_idx_a58f6b4b",
+                  "prefix": "admin_logs_actorId_idx",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "createdAt"
+                  ],
+                  "name": "admin_logs_createdAt_idx_9575dbd7",
+                  "prefix": "admin_logs_createdAt_idx",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ]
+              },
+              "uniques": []
+            },
             "games": {
               "columns": {
                 "cover": {
@@ -905,14 +1093,9 @@
                   "nativeType": "int4",
                   "nullable": false
                 },
-                "saveData": {
+                "saveState": {
                   "codecId": "pg/bytea@1",
                   "nativeType": "bytea",
-                  "nullable": false
-                },
-                "saveFile": {
-                  "codecId": "pg/text@1",
-                  "nativeType": "text",
                   "nullable": false
                 },
                 "screenshot": {
@@ -1101,6 +1284,33 @@
                 }
               ]
             },
+            "system_settings": {
+              "columns": {
+                "key": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "updatedAt": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "value": {
+                  "codecId": "pg/json@1",
+                  "nativeType": "json",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "key"
+                ]
+              },
+              "uniques": []
+            },
             "user_achievements": {
               "columns": {
                 "achievementId": {
@@ -1273,10 +1483,10 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "59b86b40de953b0aff645174fcde4c4f066dccbbb493401b204a1b718dd62be4"
+    "storageHash": "bf2ae4a17c8f70a13da639b5b36723df29f0e713a1e4f4ea58346fc61f8924ae"
   },
   "execution": {
-    "executionHash": "bc017605f5748171793bd21eb50a7a2a654c6e4a73d24e3d1bd7837f052a6e58",
+    "executionHash": "2d45424d5b5fdc18218432d4950e349d7fc5d681a133d9d622b953191e238827",
     "mutations": {
       "defaults": [
         {
@@ -1313,6 +1523,17 @@
           "ref": {
             "column": "id",
             "namespace": "public",
+            "table": "admin_logs"
+          }
+        },
+        {
+          "onCreate": {
+            "id": "uuidv4",
+            "kind": "generator"
+          },
+          "ref": {
+            "column": "id",
+            "namespace": "public",
             "table": "games"
           }
         },
@@ -1381,6 +1602,21 @@
             "column": "updatedAt",
             "namespace": "public",
             "table": "sessions"
+          }
+        },
+        {
+          "onCreate": {
+            "id": "timestampNow",
+            "kind": "generator"
+          },
+          "onUpdate": {
+            "id": "timestampNow",
+            "kind": "generator"
+          },
+          "ref": {
+            "column": "updatedAt",
+            "namespace": "public",
+            "table": "system_settings"
           }
         },
         {

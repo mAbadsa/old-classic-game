@@ -33,9 +33,9 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'bf2ae4a17c8f70a13da639b5b36723df29f0e713a1e4f4ea58346fc61f8924ae'>;
+  StorageHashBase<'91bca83312f2e00fb73b788123c8f50add245c8b58b039dae488825b13f9dafe'>;
 export type ExecutionHash =
-  ExecutionHashBase<'2d45424d5b5fdc18218432d4950e349d7fc5d681a133d9d622b953191e238827'>;
+  ExecutionHashBase<'bc017605f5748171793bd21eb50a7a2a654c6e4a73d24e3d1bd7837f052a6e58'>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
 
@@ -250,15 +250,6 @@ export type FieldOutputTypes = {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
       readonly updatedAt: CodecTypes['pg/timestamptz-string@1']['output'];
     };
-    readonly AdminLog: {
-      readonly id: CodecTypes['pg/text@1']['output'];
-      readonly actorId: CodecTypes['pg/text@1']['output'] | null;
-      readonly action: CodecTypes['pg/text@1']['output'];
-      readonly targetType: CodecTypes['pg/text@1']['output'] | null;
-      readonly targetId: CodecTypes['pg/text@1']['output'] | null;
-      readonly metadata: CodecTypes['pg/json@1']['output'] | null;
-      readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
-    };
     readonly Game: {
       readonly id: CodecTypes['pg/text@1']['output'];
       readonly title: CodecTypes['pg/text@1']['output'];
@@ -289,11 +280,6 @@ export type FieldOutputTypes = {
       readonly token: CodecTypes['pg/text@1']['output'];
       readonly expiresAt: CodecTypes['pg/timestamptz-string@1']['output'];
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
-      readonly updatedAt: CodecTypes['pg/timestamptz-string@1']['output'];
-    };
-    readonly SystemSetting: {
-      readonly key: CodecTypes['pg/text@1']['output'];
-      readonly value: CodecTypes['pg/json@1']['output'];
       readonly updatedAt: CodecTypes['pg/timestamptz-string@1']['output'];
     };
     readonly User: {
@@ -325,15 +311,6 @@ export type FieldInputTypes = {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
       readonly updatedAt: CodecTypes['pg/timestamptz-string@1']['input'];
     };
-    readonly AdminLog: {
-      readonly id: CodecTypes['pg/text@1']['input'];
-      readonly actorId: CodecTypes['pg/text@1']['input'] | null;
-      readonly action: CodecTypes['pg/text@1']['input'];
-      readonly targetType: CodecTypes['pg/text@1']['input'] | null;
-      readonly targetId: CodecTypes['pg/text@1']['input'] | null;
-      readonly metadata: CodecTypes['pg/json@1']['input'] | null;
-      readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
-    };
     readonly Game: {
       readonly id: CodecTypes['pg/text@1']['input'];
       readonly title: CodecTypes['pg/text@1']['input'];
@@ -366,11 +343,6 @@ export type FieldInputTypes = {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
       readonly updatedAt: CodecTypes['pg/timestamptz-string@1']['input'];
     };
-    readonly SystemSetting: {
-      readonly key: CodecTypes['pg/text@1']['input'];
-      readonly value: CodecTypes['pg/json@1']['input'];
-      readonly updatedAt: CodecTypes['pg/timestamptz-string@1']['input'];
-    };
     readonly User: {
       readonly id: CodecTypes['pg/text@1']['input'];
       readonly email: CodecTypes['pg/text@1']['input'];
@@ -399,15 +371,6 @@ export type StorageColumnTypes = {
       readonly id: CodecTypes['pg/text@1']['output'];
       readonly title: CodecTypes['pg/text@1']['output'];
       readonly updatedAt: CodecTypes['pg/timestamptz-string@1']['output'];
-    };
-    readonly admin_logs: {
-      readonly action: CodecTypes['pg/text@1']['output'];
-      readonly actorId: CodecTypes['pg/text@1']['output'] | null;
-      readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
-      readonly id: CodecTypes['pg/text@1']['output'];
-      readonly metadata: CodecTypes['pg/json@1']['output'] | null;
-      readonly targetId: CodecTypes['pg/text@1']['output'] | null;
-      readonly targetType: CodecTypes['pg/text@1']['output'] | null;
     };
     readonly games: {
       readonly cover: CodecTypes['pg/text@1']['output'] | null;
@@ -441,11 +404,6 @@ export type StorageColumnTypes = {
       readonly updatedAt: CodecTypes['pg/timestamptz-string@1']['output'];
       readonly userId: CodecTypes['pg/text@1']['output'];
     };
-    readonly system_settings: {
-      readonly key: CodecTypes['pg/text@1']['output'];
-      readonly updatedAt: CodecTypes['pg/timestamptz-string@1']['output'];
-      readonly value: CodecTypes['pg/json@1']['output'];
-    };
     readonly user_achievements: {
       readonly achievementId: CodecTypes['pg/text@1']['output'];
       readonly id: CodecTypes['pg/text@1']['output'];
@@ -474,15 +432,6 @@ export type StorageColumnInputTypes = {
       readonly id: CodecTypes['pg/text@1']['input'];
       readonly title: CodecTypes['pg/text@1']['input'];
       readonly updatedAt: CodecTypes['pg/timestamptz-string@1']['input'];
-    };
-    readonly admin_logs: {
-      readonly action: CodecTypes['pg/text@1']['input'];
-      readonly actorId: CodecTypes['pg/text@1']['input'] | null;
-      readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
-      readonly id: CodecTypes['pg/text@1']['input'];
-      readonly metadata: CodecTypes['pg/json@1']['input'] | null;
-      readonly targetId: CodecTypes['pg/text@1']['input'] | null;
-      readonly targetType: CodecTypes['pg/text@1']['input'] | null;
     };
     readonly games: {
       readonly cover: CodecTypes['pg/text@1']['input'] | null;
@@ -515,11 +464,6 @@ export type StorageColumnInputTypes = {
       readonly token: CodecTypes['pg/text@1']['input'];
       readonly updatedAt: CodecTypes['pg/timestamptz-string@1']['input'];
       readonly userId: CodecTypes['pg/text@1']['input'];
-    };
-    readonly system_settings: {
-      readonly key: CodecTypes['pg/text@1']['input'];
-      readonly updatedAt: CodecTypes['pg/timestamptz-string@1']['input'];
-      readonly value: CodecTypes['pg/json@1']['input'];
     };
     readonly user_achievements: {
       readonly achievementId: CodecTypes['pg/text@1']['input'];
@@ -599,63 +543,6 @@ type ContractBase = Omit<
               primaryKey: { readonly columns: readonly ['id'] };
               uniques: readonly [];
               indexes: readonly [];
-              foreignKeys: readonly [];
-            };
-            readonly admin_logs: {
-              columns: {
-                readonly id: {
-                  readonly nativeType: 'text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                };
-                readonly actorId: {
-                  readonly nativeType: 'text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: true;
-                };
-                readonly action: {
-                  readonly nativeType: 'text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                };
-                readonly targetType: {
-                  readonly nativeType: 'text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: true;
-                };
-                readonly targetId: {
-                  readonly nativeType: 'text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: true;
-                };
-                readonly metadata: {
-                  readonly nativeType: 'json';
-                  readonly codecId: 'pg/json@1';
-                  readonly nullable: true;
-                };
-                readonly createdAt: {
-                  readonly nativeType: 'timestamptz';
-                  readonly codecId: 'pg/timestamptz-string@1';
-                  readonly nullable: false;
-                  readonly default: { readonly kind: 'function'; readonly expression: 'now()' };
-                };
-              };
-              primaryKey: { readonly columns: readonly ['id'] };
-              uniques: readonly [];
-              indexes: readonly [
-                {
-                  readonly name: 'admin_logs_createdAt_idx_9575dbd7';
-                  readonly prefix: 'admin_logs_createdAt_idx';
-                  readonly columns: readonly ['createdAt'];
-                  readonly unique: false;
-                },
-                {
-                  readonly name: 'admin_logs_actorId_idx_a58f6b4b';
-                  readonly prefix: 'admin_logs_actorId_idx';
-                  readonly columns: readonly ['actorId'];
-                  readonly unique: false;
-                },
-              ];
               foreignKeys: readonly [];
             };
             readonly games: {
@@ -912,29 +799,6 @@ type ContractBase = Omit<
                 },
               ];
             };
-            readonly system_settings: {
-              columns: {
-                readonly key: {
-                  readonly nativeType: 'text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                };
-                readonly value: {
-                  readonly nativeType: 'json';
-                  readonly codecId: 'pg/json@1';
-                  readonly nullable: false;
-                };
-                readonly updatedAt: {
-                  readonly nativeType: 'timestamptz';
-                  readonly codecId: 'pg/timestamptz-string@1';
-                  readonly nullable: false;
-                };
-              };
-              primaryKey: { readonly columns: readonly ['key'] };
-              uniques: readonly [];
-              indexes: readonly [];
-              foreignKeys: readonly [];
-            };
             readonly user_achievements: {
               columns: {
                 readonly id: {
@@ -1081,11 +945,6 @@ type ContractBase = Omit<
       readonly model: 'UserAchievement';
     };
     readonly sessions: { readonly namespace: 'public' & NamespaceId; readonly model: 'Session' };
-    readonly system_settings: {
-      readonly namespace: 'public' & NamespaceId;
-      readonly model: 'SystemSetting';
-    };
-    readonly admin_logs: { readonly namespace: 'public' & NamespaceId; readonly model: 'AdminLog' };
   };
   readonly domain: {
     readonly namespaces: {
@@ -1152,55 +1011,6 @@ type ContractBase = Omit<
                 readonly criteria: { readonly column: 'criteria' };
                 readonly createdAt: { readonly column: 'createdAt' };
                 readonly updatedAt: { readonly column: 'updatedAt' };
-              };
-            };
-          };
-          readonly AdminLog: {
-            readonly fields: {
-              readonly id: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly actorId: {
-                readonly nullable: true;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly action: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly targetType: {
-                readonly nullable: true;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly targetId: {
-                readonly nullable: true;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly metadata: {
-                readonly nullable: true;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/json@1' };
-              };
-              readonly createdAt: {
-                readonly nullable: false;
-                readonly type: {
-                  readonly kind: 'scalar';
-                  readonly codecId: 'pg/timestamptz-string@1';
-                };
-              };
-            };
-            readonly relations: Record<string, never>;
-            readonly storage: {
-              readonly table: 'admin_logs';
-              readonly namespaceId: 'public';
-              readonly fields: {
-                readonly id: { readonly column: 'id' };
-                readonly actorId: { readonly column: 'actorId' };
-                readonly action: { readonly column: 'action' };
-                readonly targetType: { readonly column: 'targetType' };
-                readonly targetId: { readonly column: 'targetId' };
-                readonly metadata: { readonly column: 'metadata' };
-                readonly createdAt: { readonly column: 'createdAt' };
               };
             };
           };
@@ -1426,35 +1236,6 @@ type ContractBase = Omit<
               };
             };
           };
-          readonly SystemSetting: {
-            readonly fields: {
-              readonly key: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly value: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/json@1' };
-              };
-              readonly updatedAt: {
-                readonly nullable: false;
-                readonly type: {
-                  readonly kind: 'scalar';
-                  readonly codecId: 'pg/timestamptz-string@1';
-                };
-              };
-            };
-            readonly relations: Record<string, never>;
-            readonly storage: {
-              readonly table: 'system_settings';
-              readonly namespaceId: 'public';
-              readonly fields: {
-                readonly key: { readonly column: 'key' };
-                readonly value: { readonly column: 'value' };
-                readonly updatedAt: { readonly column: 'updatedAt' };
-              };
-            };
-          };
           readonly User: {
             readonly fields: {
               readonly id: {
@@ -1647,14 +1428,6 @@ type ContractBase = Omit<
         {
           readonly ref: {
             readonly namespace: 'public';
-            readonly table: 'admin_logs';
-            readonly column: 'id';
-          };
-          readonly onCreate: { readonly kind: 'generator'; readonly id: 'uuidv4' };
-        },
-        {
-          readonly ref: {
-            readonly namespace: 'public';
             readonly table: 'games';
             readonly column: 'id';
           };
@@ -1698,15 +1471,6 @@ type ContractBase = Omit<
           readonly ref: {
             readonly namespace: 'public';
             readonly table: 'sessions';
-            readonly column: 'updatedAt';
-          };
-          readonly onCreate: { readonly kind: 'generator'; readonly id: 'timestampNow' };
-          readonly onUpdate: { readonly kind: 'generator'; readonly id: 'timestampNow' };
-        },
-        {
-          readonly ref: {
-            readonly namespace: 'public';
-            readonly table: 'system_settings';
             readonly column: 'updatedAt';
           };
           readonly onCreate: { readonly kind: 'generator'; readonly id: 'timestampNow' };

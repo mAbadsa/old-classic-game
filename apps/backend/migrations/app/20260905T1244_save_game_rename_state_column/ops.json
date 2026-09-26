@@ -1,0 +1,60 @@
+[
+  {
+    "id": "dropColumn.save_games.saveFile",
+    "label": "Drop column \"saveFile\" from \"save_games\"",
+    "operationClass": "destructive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "saveFile",
+        "table": "save_games"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"saveFile\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "save_games",
+          "saveFile"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "drop column \"saveFile\"",
+        "sql": "ALTER TABLE \"public\".\"save_games\" DROP COLUMN \"saveFile\""
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"saveFile\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "save_games",
+          "saveFile"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "renameColumn.save_games.saveState",
+    "label": "Rename column \"saveData\" to \"saveState\" on \"save_games\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "table.save_games"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Rename column \"saveData\" to \"saveState\" on \"save_games\"",
+        "sql": "ALTER TABLE \"public\".\"save_games\" RENAME COLUMN \"saveData\" TO \"saveState\""
+      }
+    ],
+    "postcheck": []
+  }
+]

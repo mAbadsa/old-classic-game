@@ -77,4 +77,12 @@ export class GamesService {
       tags: dto.tags ?? null,
     });
   }
+
+  async updateRomPath(id: string, romPath: string): Promise<Game> {
+    await db.orm.public.Game.where((g) => g.id.eq(id)).update({ romPath });
+    // Re-fetch rather than trust .update()'s own return shape — this also
+    // gives a clean 404 (via findOne) if `id` didn't match any row, instead
+    // of silently no-op'ing the way a bare UPDATE would.
+    return this.findOne(id);
+  }
 }

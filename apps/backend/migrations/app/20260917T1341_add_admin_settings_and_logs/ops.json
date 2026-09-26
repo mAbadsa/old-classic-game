@@ -1,0 +1,158 @@
+[
+  {
+    "id": "table.admin_logs",
+    "label": "Create table \"admin_logs\"",
+    "summary": "Creates table \"admin_logs\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "admin_logs"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"admin_logs\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"admin_logs\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"admin_logs\"",
+        "sql": "CREATE TABLE \"public\".\"admin_logs\" (\n  \"action\" text NOT NULL,\n  \"actorId\" text,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"id\" text NOT NULL,\n  \"metadata\" json,\n  \"targetId\" text,\n  \"targetType\" text,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"admin_logs\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"admin_logs\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.system_settings",
+    "label": "Create table \"system_settings\"",
+    "summary": "Creates table \"system_settings\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "system_settings"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"system_settings\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"system_settings\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"system_settings\"",
+        "sql": "CREATE TABLE \"public\".\"system_settings\" (\n  \"key\" text NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  \"value\" json NOT NULL,\n  PRIMARY KEY (\"key\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"system_settings\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"system_settings\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.admin_logs.admin_logs_actorId_idx_a58f6b4b",
+    "label": "Create index \"admin_logs_actorId_idx_a58f6b4b\" on \"admin_logs\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "admin_logs_actorId_idx_a58f6b4b",
+        "table": "admin_logs"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"admin_logs_actorId_idx_a58f6b4b\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"admin_logs_actorId_idx_a58f6b4b\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"admin_logs_actorId_idx_a58f6b4b\"",
+        "sql": "CREATE INDEX \"admin_logs_actorId_idx_a58f6b4b\" ON \"public\".\"admin_logs\" (\"actorId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"admin_logs_actorId_idx_a58f6b4b\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"admin_logs_actorId_idx_a58f6b4b\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.admin_logs.admin_logs_createdAt_idx_9575dbd7",
+    "label": "Create index \"admin_logs_createdAt_idx_9575dbd7\" on \"admin_logs\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "admin_logs_createdAt_idx_9575dbd7",
+        "table": "admin_logs"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"admin_logs_createdAt_idx_9575dbd7\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"admin_logs_createdAt_idx_9575dbd7\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"admin_logs_createdAt_idx_9575dbd7\"",
+        "sql": "CREATE INDEX \"admin_logs_createdAt_idx_9575dbd7\" ON \"public\".\"admin_logs\" (\"createdAt\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"admin_logs_createdAt_idx_9575dbd7\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"admin_logs_createdAt_idx_9575dbd7\""
+        ]
+      }
+    ]
+  }
+]

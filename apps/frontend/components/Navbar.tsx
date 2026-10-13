@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Gamepad2, Home, Library, LogOut, Menu, User as UserIcon } from "lucide-react";
+import { Gamepad2, Home, Library, LogOut, Menu, Upload, User as UserIcon, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -13,6 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { UserMenu } from "@/components/UserMenu";
 import { clearAccessToken, type AuthUser } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
@@ -23,6 +24,9 @@ const NAV_LINKS = [
   { href: "/games", label: "Games", icon: Library },
   { href: "/profile", label: "Profile", icon: UserIcon },
 ] as const;
+
+// Only shown to admins; the upload page and POST /games/upload enforce this too.
+const ADMIN_LINK = { href: "/upload", label: "Upload", icon: Upload };
 
 export interface NavbarProps {
   /** null while the session is still being confirmed (see useRequireAuth) — the email slot is just hidden until it resolves. */
@@ -38,6 +42,8 @@ export function Navbar({ user }: NavbarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const links: readonly { href: string; label: string; icon: LucideIcon }[] =
+    user?.role === "admin" ? [...NAV_LINKS, ADMIN_LINK] : NAV_LINKS;
 
   function handleLogout() {
     clearAccessToken();
@@ -55,15 +61,9 @@ export function Navbar({ user }: NavbarProps) {
           {APP_NAME}
         </Link>
 
-        {user && (
-          <span className="hidden truncate text-center text-sm text-muted-foreground sm:block">
-            {user.email}
-          </span>
-        )}
-
         <div className="hidden items-center justify-end gap-1 sm:flex">
           <nav className="flex items-center gap-1">
-            {NAV_LINKS.map(({ href, label }) => (
+            {links.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
@@ -77,9 +77,7 @@ export function Navbar({ user }: NavbarProps) {
               </Link>
             ))}
           </nav>
-          <Button variant="outline" onClick={handleLogout} className="ml-2">
-            <LogOut /> Log out
-          </Button>
+          {user && <UserMenu user={user} onLogout={handleLogout} className="ml-2" />}
         </div>
 
         <div className="flex items-center justify-end gap-1 sm:hidden">
@@ -95,7 +93,7 @@ export function Navbar({ user }: NavbarProps) {
                 {user && <SheetDescription className="truncate">{user.email}</SheetDescription>}
               </SheetHeader>
               <nav className="flex flex-col gap-1 px-4">
-                {NAV_LINKS.map(({ href, label, icon: Icon }) => (
+                {links.map(({ href, label, icon: Icon }) => (
                   <Link
                     key={href}
                     href={href}

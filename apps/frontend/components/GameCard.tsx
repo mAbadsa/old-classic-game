@@ -11,6 +11,7 @@ export interface GameCardProps {
     title: string;
     emulator: string;
     cover?: string | null;
+    thumbnail?: string | null;
     releaseYear?: number | null;
     rating?: number | null;
   };
@@ -18,6 +19,9 @@ export interface GameCardProps {
 }
 
 export function GameCard({ game, className }: GameCardProps) {
+  // Cards prefer the small thumbnail; games uploaded before thumbnails existed fall back to the cover.
+  const cardImage = game.thumbnail ?? game.cover;
+
   return (
     <Link
       href={`/emulator/${game.id}`}
@@ -28,13 +32,13 @@ export function GameCard({ game, className }: GameCardProps) {
       )}
     >
       <div className="relative aspect-video w-full overflow-hidden bg-black/40">
-        {game.cover ? (
+        {cardImage ? (
           // Covers come from arbitrary, unconfigured external hosts (S3 or
           // otherwise per Game.cover) — next/image requires allow-listing
           // remote hostnames ahead of time, which doesn't fit that.
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={game.cover}
+            src={cardImage}
             alt=""
             className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
           />

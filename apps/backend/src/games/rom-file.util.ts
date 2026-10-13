@@ -10,6 +10,7 @@ export const EXTENSION_BY_EMULATOR: Record<string, string> = {
   genesis: '.md',
   atari: '.bin',
   mame: '.zip',
+  n64: '.n64',
 };
 
 export function romExtensionForEmulator(emulator: string): string {

@@ -24,6 +24,7 @@ model Game {
   emulator    String   // "genesis", "nes", "atari", etc.
   romPath     String   // S3 path
   cover       String?  // Image URL
+  thumbnail   String?  // Small image URL for library cards
   description String?
   releaseYear Int?
   rating      Float?   @default(0)

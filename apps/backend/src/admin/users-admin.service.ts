@@ -10,11 +10,12 @@ export interface SafeUser {
   username: string;
   avatar: string | null;
   role: string;
+  status: string;
   createdAt: string;
   updatedAt: string;
 }
 
-const SAFE_USER_FIELDS = ['id', 'email', 'username', 'avatar', 'role', 'createdAt', 'updatedAt'] as const;
+const SAFE_USER_FIELDS = ['id', 'email', 'username', 'avatar', 'role', 'status', 'createdAt', 'updatedAt'] as const;
 
 @Injectable()
 export class UsersAdminService {
@@ -54,6 +55,24 @@ export class UsersAdminService {
     await this.findOne(id); // 404s before issuing a no-op UPDATE against a missing row.
     await db.orm.public.User.where((u) => u.id.eq(id)).update({ role });
     return this.findOne(id);
+  }
+
+  async updateStatus(id: string, status: string): Promise<SafeUser> {
+    await this.findOne(id);
+    await db.orm.public.User.where((u) => u.id.eq(id)).update({ status });
+    if (status !== 'active') {
+      await this.forceLogout(id); // Suspension also ends any sessions already open.
+    }
+    return this.findOne(id);
+  }
+
+  // Bumping tokenVersion makes every JWT issued so far fail validation (see JwtStrategy).
+  async forceLogout(id: string): Promise<void> {
+    const user = await db.orm.public.User.first({ id });
+    if (!user) {
+      throw new NotFoundException(`User with id "${id}" not found`);
+    }
+    await db.orm.public.User.where((u) => u.id.eq(id)).update({ tokenVersion: user.tokenVersion + 1 });
   }
 
   async remove(id: string): Promise<void> {

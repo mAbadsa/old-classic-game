@@ -103,6 +103,18 @@ export async function login(email: string, password: string): Promise<LoginResul
   return res.json() as Promise<LoginResult>;
 }
 
+/** Ends the session server-side (revokes existing tokens) and clears the local copy. Local state is cleared even if the call fails. */
+export async function logout(): Promise<void> {
+  const token = getAccessToken();
+  try {
+    if (token) {
+      await fetch(`${API_URL}/auth/logout`, { method: "POST", headers: { Authorization: `Bearer ${token}` } });
+    }
+  } finally {
+    clearAccessToken();
+  }
+}
+
 export interface SignupResult {
   accessToken: string;
   user: { id: string; email: string; username: string };

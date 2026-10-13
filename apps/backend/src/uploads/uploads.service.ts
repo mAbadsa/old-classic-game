@@ -1,6 +1,7 @@
 import { extname } from 'node:path';
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, Logger } from '@nestjs/common';
 import { STORAGE_PROVIDER, type SavedFile, type StorageProvider } from './storage/storage-provider.interface.js';
+import { imageExtensionFor } from './image-file-validation.js';
 
 export interface UploadRomResult {
   path: string;
@@ -27,6 +28,14 @@ export class UploadsService {
       size: file.size,
       mimeType: file.mimetype,
     };
+  }
+
+  async storeImage(file: Express.Multer.File): Promise<SavedFile> {
+    const extension = imageExtensionFor(file.mimetype);
+    if (!extension) {
+      throw new BadRequestException(`Unsupported image type "${file.mimetype}"`);
+    }
+    return this.storage.save(file.buffer, extension);
   }
 
   openStored(path: string) {

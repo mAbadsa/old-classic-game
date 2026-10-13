@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Gamepad2, Home, Library, LogOut, Menu, Upload, User as UserIcon, type LucideIcon } from "lucide-react";
+import { Gamepad2, Home, Library, LayoutDashboard, LogOut, Menu, Upload, User as UserIcon, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -14,7 +14,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { UserMenu } from "@/components/UserMenu";
-import { clearAccessToken, type AuthUser } from "@/lib/auth";
+import { logout, type AuthUser } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
 export const APP_NAME = "RetroPlay";
@@ -25,8 +25,11 @@ const NAV_LINKS = [
   { href: "/profile", label: "Profile", icon: UserIcon },
 ] as const;
 
-// Only shown to admins; the upload page and POST /games/upload enforce this too.
-const ADMIN_LINK = { href: "/upload", label: "Upload", icon: Upload };
+// Only shown to admins; every /admin route and the admin API enforce this too.
+const ADMIN_LINKS = [
+  { href: "/admin", label: "Admin", icon: LayoutDashboard },
+  { href: "/upload", label: "Upload", icon: Upload },
+] as const;
 
 export interface NavbarProps {
   /** null while the session is still being confirmed (see useRequireAuth) — the email slot is just hidden until it resolves. */
@@ -43,10 +46,10 @@ export function Navbar({ user }: NavbarProps) {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const links: readonly { href: string; label: string; icon: LucideIcon }[] =
-    user?.role === "admin" ? [...NAV_LINKS, ADMIN_LINK] : NAV_LINKS;
+    user?.role === "admin" ? [...NAV_LINKS, ...ADMIN_LINKS] : NAV_LINKS;
 
-  function handleLogout() {
-    clearAccessToken();
+  async function handleLogout() {
+    await logout();
     router.replace("/auth/login");
   }
 

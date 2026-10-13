@@ -7,10 +7,12 @@ import { GamesAdminService } from './games-admin.service.js';
 import { UsersAdminService } from './users-admin.service.js';
 import { AnalyticsService } from './analytics.service.js';
 import { SystemService } from './system.service.js';
+import { MailModule } from '../mail/mail.module.js';
+import { MailAdminService } from './mail-admin.service.js';
 
 @Module({
-  imports: [AuthModule, UploadsModule],
+  imports: [AuthModule, UploadsModule, MailModule],
   controllers: [AdminController],
-  providers: [AdminService, GamesAdminService, UsersAdminService, AnalyticsService, SystemService],
+  providers: [AdminService, GamesAdminService, UsersAdminService, AnalyticsService, SystemService, MailAdminService],
 })
 export class AdminModule {}

@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UsersService, type User } from '../users/users.service.js';
@@ -55,8 +55,15 @@ export class AuthService {
     if (!passwordMatches) {
       throw new UnauthorizedException('Invalid email or password');
     }
+    if (user.status !== 'active') {
+      throw new ForbiddenException('This account has been suspended');
+    }
 
     return this.buildAuthResult(user);
+  }
+
+  logout(userId: string): Promise<void> {
+    return this.usersService.bumpTokenVersion(userId);
   }
 
   private buildAuthResult(user: User): AuthResult {
@@ -64,6 +71,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       username: user.username,
+      tv: user.tokenVersion,
     });
 
     return {

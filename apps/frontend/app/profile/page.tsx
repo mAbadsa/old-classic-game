@@ -1,10 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import { useRequireAuth } from "@/hooks/useRequireAuth";
+import { logout } from "@/lib/auth";
 
 export default function ProfilePage() {
   const { user, isLoading } = useRequireAuth();
+  const router = useRouter();
+
+  async function handleLogout() {
+    await logout();
+    router.replace("/auth/login");
+  }
 
   if (isLoading) {
     return (
@@ -31,9 +40,14 @@ export default function ProfilePage() {
         <dd className="capitalize text-slate-200">{user.role}</dd>
       </dl>
 
-      <Link href="/games" className="text-sm text-neon-pink underline underline-offset-4">
-        Back to library
-      </Link>
+      <div className="flex items-center gap-6">
+        <Link href="/games" className="text-sm text-neon-pink underline underline-offset-4">
+          Back to library
+        </Link>
+        <Button variant="outline" onClick={handleLogout}>
+          Log out
+        </Button>
+      </div>
     </div>
   );
 }

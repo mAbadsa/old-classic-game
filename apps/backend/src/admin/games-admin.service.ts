@@ -11,6 +11,7 @@ export interface Game {
   emulator: string;
   romPath: string;
   cover: string | null;
+  thumbnail: string | null;
   description: string | null;
   releaseYear: number | null;
   rating: number | null;
@@ -18,6 +19,8 @@ export interface Game {
   createdAt: string;
   updatedAt: string;
 }
+
+export type GameImageKind = 'cover' | 'thumbnail';
 
 /** CRUD for games from the admin surface — GamesController/GamesService cover the public-facing routes (list, get, upload-rom); this adds the update/delete admin needs and its own create for the /admin namespace. */
 @Injectable()
@@ -95,6 +98,13 @@ export class GamesAdminService {
   async updateRomPath(id: string, romPath: string): Promise<Game> {
     await this.findOne(id); // 404s before issuing a no-op UPDATE against a missing row.
     await db.orm.public.Game.where((g) => g.id.eq(id)).update({ romPath });
+    return this.findOne(id);
+  }
+
+  async updateImage(id: string, kind: GameImageKind, url: string): Promise<Game> {
+    await this.findOne(id);
+    const change = kind === 'cover' ? { cover: url } : { thumbnail: url };
+    await db.orm.public.Game.where((g) => g.id.eq(id)).update(change);
     return this.findOne(id);
   }
 

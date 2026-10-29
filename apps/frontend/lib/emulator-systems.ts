@@ -28,6 +28,12 @@ export const EMULATOR_SYSTEMS = {
     romFolder: "atari2600",
     extensions: [".a26", ".bin"],
   },
+  n64: {
+    label: "Nintendo 64",
+    core: "mupen64plus_next",
+    romFolder: "n64",
+    extensions: [".n64", ".z64", ".rom"],
+  },
 } as const;
 
 export type EmulatorSystemKey = keyof typeof EMULATOR_SYSTEMS;

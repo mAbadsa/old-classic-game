@@ -21,6 +21,10 @@ export class CreateGameDto {
 
   @IsOptional()
   @IsString()
+  thumbnail?: string;
+
+  @IsOptional()
+  @IsString()
   description?: string;
 
   @IsOptional()

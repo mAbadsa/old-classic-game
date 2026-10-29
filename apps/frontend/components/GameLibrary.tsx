@@ -12,6 +12,7 @@ interface GameListItem {
   title: string;
   emulator: string;
   cover: string | null;
+  thumbnail: string | null;
   releaseYear: number | null;
   rating: number | null;
 }

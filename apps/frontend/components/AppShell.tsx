@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 import { Navbar } from "@/components/Navbar";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 
@@ -32,6 +33,7 @@ export function AppShell({ children }: AppShellProps) {
 
   return (
     <>
+      <AnnouncementBanner />
       {showNavbar && <Navbar user={user} />}
       <main className="flex flex-1 flex-col overflow-y-auto">{children}</main>
     </>

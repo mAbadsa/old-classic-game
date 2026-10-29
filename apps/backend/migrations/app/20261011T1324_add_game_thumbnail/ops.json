@@ -1,0 +1,44 @@
+[
+  {
+    "id": "column.public.games.thumbnail",
+    "label": "Add column \"thumbnail\" to \"games\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "thumbnail",
+        "table": "games"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"thumbnail\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "games",
+          "thumbnail"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"thumbnail\"",
+        "sql": "ALTER TABLE \"public\".\"games\" ADD COLUMN \"thumbnail\" text"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"thumbnail\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "games",
+          "thumbnail"
+        ]
+      }
+    ]
+  }
+]

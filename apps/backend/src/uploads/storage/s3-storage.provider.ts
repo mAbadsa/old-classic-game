@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
+import type { Readable } from 'node:stream';
 import { Injectable } from '@nestjs/common';
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { DeleteObjectCommand, GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import type { SavedFile, StorageProvider } from './storage-provider.interface.js';
 
 const EXTENSION_CONTENT_TYPES: Record<string, string> = {
@@ -41,5 +42,17 @@ export class S3StorageProvider implements StorageProvider {
       path: key,
       url: `https://${this.bucket}.s3.${this.region}.amazonaws.com/${key}`,
     };
+  }
+
+  async open(path: string): Promise<Readable> {
+    const { Body } = await this.client.send(new GetObjectCommand({ Bucket: this.bucket, Key: path }));
+    if (!Body) {
+      throw new Error(`S3 object "${path}" has no body`);
+    }
+    return Body as Readable;
+  }
+
+  async delete(path: string): Promise<void> {
+    await this.client.send(new DeleteObjectCommand({ Bucket: this.bucket, Key: path }));
   }
 }

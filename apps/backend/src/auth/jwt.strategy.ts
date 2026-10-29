@@ -7,6 +7,8 @@ export interface JwtPayload {
   sub: string;
   email: string;
   username: string;
+  // Must match User.tokenVersion; bumped to revoke outstanding tokens.
+  tv: number;
 }
 
 export interface AuthenticatedUser {
@@ -35,6 +37,12 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     const user = await this.usersService.findById(payload.sub);
     if (!user) {
       throw new UnauthorizedException('User no longer exists');
+    }
+    if (user.status !== 'active') {
+      throw new UnauthorizedException('Account is suspended');
+    }
+    if (payload.tv !== user.tokenVersion) {
+      throw new UnauthorizedException('Session has ended, please sign in again');
     }
     return { id: user.id, email: user.email, username: user.username, role: user.role };
   }

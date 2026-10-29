@@ -9,6 +9,7 @@ export interface Game {
   emulator: string;
   romPath: string;
   cover: string | null;
+  thumbnail: string | null;
   description: string | null;
   releaseYear: number | null;
   rating: number | null;
@@ -71,6 +72,7 @@ export class GamesService {
       emulator: dto.emulator,
       romPath: dto.romPath,
       cover: dto.cover ?? null,
+      thumbnail: dto.thumbnail ?? null,
       description: dto.description ?? null,
       releaseYear: dto.releaseYear ?? null,
       rating: dto.rating ?? 0,

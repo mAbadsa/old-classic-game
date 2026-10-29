@@ -14,6 +14,8 @@ export interface User {
   passwordHash: string;
   avatar: string | null;
   role: string;
+  status: string;
+  tokenVersion: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -34,6 +36,13 @@ export class UsersService {
 
   findById(id: string): Promise<User | null> {
     return db.orm.public.User.first({ id });
+  }
+
+  // Invalidates every JWT issued to this user so far (logout, suspension, forced sign-out).
+  async bumpTokenVersion(id: string): Promise<void> {
+    const user = await this.findById(id);
+    if (!user) return;
+    await db.orm.public.User.where((u) => u.id.eq(id)).update({ tokenVersion: user.tokenVersion + 1 });
   }
 
   async create(input: CreateUserInput): Promise<User> {
